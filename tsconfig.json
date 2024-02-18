@@ -7,6 +7,10 @@
 		"jsx": "react-jsx",
 		"allowJs": true,
 		"moduleResolution": "node",
+		"baseUrl": ".",
+		"paths": {
+			"*": ["./src/*"]
+		},
 		//for imports
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true
