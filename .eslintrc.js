@@ -27,9 +27,11 @@ module.exports = {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
 	},
-	plugins: ['@typescript-eslint', 'react', 'i18next'],
+	plugins: ['@typescript-eslint', 'react', 'i18next', 'react-hooks'],
 	rules: {
 		'@typescript-eslint/no-unused-vars': 'warn',
 		'i18next/no-literal-string': ['error', { markupOnly: true }],
+		'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+		'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
 	},
 };
