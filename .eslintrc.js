@@ -30,6 +30,7 @@ module.exports = {
 	plugins: ['@typescript-eslint', 'react', 'i18next', 'react-hooks'],
 	rules: {
 		'@typescript-eslint/no-unused-vars': 'warn',
+		'@typescript-eslint/no-explicit-any': 'warn',
 		'i18next/no-literal-string': ['error', { markupOnly: true }],
 		'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
 		'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
