@@ -9,6 +9,9 @@
 	"Произошла непредвиденная ошибка": "Something went wrong",
 	"Обновить страницу": "Reload page",
 	"Войти": "Log in",
+	"Выйти": "Logout",
 	"Логин": "Username",
-	"Пароль": "Password"
+	"Пароль": "Password",
+	"Форма авторизации": "Auth form",
+	"Некорректный логин или пароль": "Incorrect username or password"
 }
