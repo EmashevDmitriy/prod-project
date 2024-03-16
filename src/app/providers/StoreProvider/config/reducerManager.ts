@@ -11,7 +11,7 @@ export function createReducerManager(
 ) {
 	const reducers = { ...initialReducers };
 	let combinedReducer = combineReducers(reducers);
-	let keysToRemove: StateSchemeKeys[] = [];
+	let keysToRemove: Array<StateSchemeKeys> = [];
 
 	return {
 		getReducerMap: () => reducers,
@@ -23,6 +23,8 @@ export function createReducerManager(
 				}
 				keysToRemove = [];
 			}
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			return combinedReducer(state, action);
 		},
 		add: (key: StateSchemeKeys, reducer: Reducer) => {

@@ -29,6 +29,7 @@ module.exports = {
 	},
 	plugins: ['@typescript-eslint', 'react', 'i18next', 'react-hooks'],
 	rules: {
+		'react/display-name': 'off',
 		'@typescript-eslint/no-unused-vars': 'warn',
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'i18next/no-literal-string': ['error', { markupOnly: true }],

@@ -11,9 +11,9 @@ export function useTheme(): UseThemeResult {
 
 	const changeTheme = () => {
 		const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
-		setTheme(newTheme);
+		setTheme?.(newTheme);
 		localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
 	};
 
-	return { changeTheme, theme };
+	return { changeTheme, theme: theme || Theme.LIGHT };
 }

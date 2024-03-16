@@ -30,7 +30,7 @@ const Input = (props: InputProps) => {
 		autofocus,
 		...otherProps
 	} = props;
-	const ref = useRef<HTMLInputElement>();
+	const ref = useRef<HTMLInputElement>(null);
 	const [isFocused, setIsFocused] = useState(false);
 	const [caretPosition, setCaretPosition] = useState(0);
 

@@ -5,9 +5,12 @@ import {
 	ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { CombinedSliceReducer } from '@reduxjs/toolkit/dist/combineSlices';
+import { AxiosInstance } from 'axios';
 import { CounterScheme } from 'entities/Counter';
+import { ProfileScheme } from 'entities/Profile';
 import { UserScheme } from 'entities/User';
 import { LoginScheme } from 'features/AuthByUsername/model/types/LoginScheme';
+import { NavigateOptions, To } from 'react-router-dom';
 
 export interface StateScheme {
 	counter: CounterScheme;
@@ -15,6 +18,7 @@ export interface StateScheme {
 
 	//Async
 	loginForm?: LoginScheme;
+	profile?: ProfileScheme;
 }
 
 export type StateSchemeKeys = keyof StateScheme;
@@ -31,4 +35,14 @@ export interface ReducerManager {
 
 export interface ReduxStoreWithManager extends EnhancedStore<StateScheme> {
 	reducerManager: ReducerManager;
+}
+
+export interface ThunkExtraArg {
+	api: AxiosInstance;
+	navigate?: (to: To, options?: NavigateOptions) => void;
+}
+
+export interface ThunkConfig<T> {
+	rejectValue: T;
+	extra: ThunkExtraArg;
 }

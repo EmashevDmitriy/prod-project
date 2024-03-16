@@ -1,12 +1,15 @@
 import { ReducersMapObject, configureStore } from '@reduxjs/toolkit';
-import { StateScheme } from './StateScheme';
+import { StateScheme, ThunkExtraArg } from './StateScheme';
 import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
 import { createReducerManager } from './reducerManager';
+import { $api } from 'shared/api/api';
+import { NavigateOptions, To } from 'react-router-dom';
 
 export function createReduxStore(
 	initialState?: StateScheme,
 	asyncReducers?: ReducersMapObject<StateScheme>,
+	navigate?: (to: To, options?: NavigateOptions) => void,
 ) {
 	const rootReducer: ReducersMapObject<StateScheme> = {
 		...asyncReducers,
@@ -16,10 +19,23 @@ export function createReduxStore(
 
 	const reducerManager = createReducerManager(rootReducer);
 
-	const store = configureStore<StateScheme>({
-		reducer: reducerManager.reduce,
+	const extraArg: ThunkExtraArg = {
+		api: $api,
+		navigate,
+	};
+
+	const store = configureStore({
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		reducer: reducerManager.reduce as ReducersMapObject<StateScheme>,
 		devTools: __IS_DEV__,
 		preloadedState: initialState,
+		middleware: getDefaultMiddleware =>
+			getDefaultMiddleware({
+				thunk: {
+					extraArgument: extraArg,
+				},
+			}),
 	});
 
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
