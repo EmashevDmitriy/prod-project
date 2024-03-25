@@ -1,38 +1,38 @@
 {
-	"posts": [
-		{
-			"id": "1",
-			"title": "json-server",
-			"userId": "1"
-		},
-		{
-			"id": "2",
-			"title": "json-server",
-			"userId": "2"
-		}
-	],
-	"comments": [
-		{
-			"id": "1",
-			"body": "some comment",
-			"postId": "1"
-		}
-	],
-	"users": [
-		{
-			"id": "1",
-			"username": "admin",
-			"password": "123"
-		}
-	],
-	"profile": {
-		"firstName": "Иван",
-		"lastName": "Иванов",
-		"age": "20",
-		"currency": "RUB",
-		"country": "Russia",
-		"city": "Moscow",
-		"username": "admin",
-		"avatar": "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg"
-	}
+  "posts": [
+    {
+      "id": "1",
+      "title": "json-server",
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "title": "json-server",
+      "userId": "2"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "body": "some comment",
+      "postId": "1"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "123"
+    }
+  ],
+  "profile": {
+    "firstName": "Иван",
+    "lastName": "Иванов",
+    "age": "20",
+    "currency": "RUB",
+    "country": "Kazakhstan",
+    "city": "Moscow",
+    "username": "admin",
+    "avatar": "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg"
+  }
 }
