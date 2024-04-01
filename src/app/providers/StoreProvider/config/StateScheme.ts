@@ -6,6 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import { CombinedSliceReducer } from '@reduxjs/toolkit/dist/combineSlices';
 import { AxiosInstance } from 'axios';
+import { ArticleDetailsScheme } from 'entities/Article';
 import { CounterScheme } from 'entities/Counter';
 import { ProfileScheme } from 'entities/Profile';
 import { UserScheme } from 'entities/User';
@@ -19,6 +20,7 @@ export interface StateScheme {
 	//Async
 	loginForm?: LoginScheme;
 	profile?: ProfileScheme;
+	articleDetails?: ArticleDetailsScheme;
 }
 
 export type StateSchemeKeys = keyof StateScheme;

@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ArticleDetailsPage from './ArticleDetailsPage';
+import { ArticleDetails } from './ArticleDetails';
+import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 import {
 	Article,
 	ArticleBlockType,
 	ArticleType,
 } from 'entities/Article/model/types/article';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 
-const meta: Meta<typeof ArticleDetailsPage> = {
-	title: 'pages/ArticlesDetailsPage',
-	component: ArticleDetailsPage,
+const meta: Meta<typeof ArticleDetails> = {
+	title: 'entities/ArticleDetails',
+	component: ArticleDetails,
 	tags: ['autodocs'],
 };
 
 export default meta;
-type Story = StoryObj<typeof ArticleDetailsPage>;
+type Story = StoryObj<typeof ArticleDetails>;
 
 const article: Article = {
 	id: '1',
@@ -88,4 +88,14 @@ const article: Article = {
 
 export const Primary: Story = {
 	decorators: [StoreDecorator({ articleDetails: { data: article } })],
+};
+
+export const Loading: Story = {
+	decorators: [StoreDecorator({ articleDetails: { isLoading: true } })],
+};
+
+export const WithError: Story = {
+	decorators: [
+		StoreDecorator({ articleDetails: { error: 'Something went wrong' } }),
+	],
 };
