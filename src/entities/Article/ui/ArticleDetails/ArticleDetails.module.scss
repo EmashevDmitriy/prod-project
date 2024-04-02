@@ -29,6 +29,13 @@
 	justify-content: center;
 }
 
-.block {
+.block,
+.blockImg {
 	margin-top: 16px;
+}
+
+.blockImg {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }

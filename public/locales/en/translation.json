@@ -17,5 +17,7 @@
 	"Форма авторизации": "Auth form",
 	"Некорректный логин или пароль": "Incorrect username or password",
 	"Укажите валюту": "Enter currency",
-	"Укажите страну": "Enter country"
+	"Укажите страну": "Enter country",
+	"Комментарии": "Comments",
+	"Комментарии отсутствуют": "There are no comments"
 }

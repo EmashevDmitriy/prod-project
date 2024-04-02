@@ -6,7 +6,7 @@ import cls from './ArticleDetails.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArticleById';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -25,6 +25,7 @@ import { ArticleBlock, ArticleBlockType } from '../../model/types/article';
 import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleCodeBlockComponent';
 import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 
 interface ArticleDetailsProps {
 	className?: string;
@@ -58,7 +59,7 @@ export const ArticleDetails = memo(({ className, id }: ArticleDetailsProps) => {
 					<ArticleImageBlockComponent
 						key={block.id}
 						block={block}
-						className={cls.block}
+						className={cls.blockImg}
 					/>
 				);
 			case ArticleBlockType.TEXT:
@@ -74,11 +75,9 @@ export const ArticleDetails = memo(({ className, id }: ArticleDetailsProps) => {
 		}
 	}, []);
 
-	useEffect(() => {
-		if (__PROJECT__ !== 'storybook') {
-			dispatch(fetchArticleById(id));
-		}
-	}, [dispatch, id]);
+	useInitialEffect(() => {
+		dispatch(fetchArticleById(id));
+	});
 
 	let content;
 	if (isLoading) {

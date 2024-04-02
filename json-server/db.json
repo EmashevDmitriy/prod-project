@@ -107,7 +107,16 @@
 		{
 			"id": "1",
 			"username": "admin",
-			"password": "123"
+			"password": "123",
+			"role": "ADMIN",
+			"avatar": "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg"
+		},
+		{
+			"id": "2",
+			"username": "Gloomly",
+			"password": "12345",
+			"role": "USER",
+			"avatar": "https://avatars.dzeninfra.ru/get-zen_doc/3437146/pub_5f046e2a26e6636184a15534_5f046f752c123e1394a7f5d1/scale_1200"
 		}
 	],
 	"profile": {
