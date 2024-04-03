@@ -1,5 +1,5 @@
 import cls from './ArticleDetailsPage.module.scss';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ArticleDetails } from 'entities/Article';
 import { useParams } from 'react-router-dom';
@@ -19,6 +19,8 @@ import { getArticleCommentsIsLoading } from '../model/selectors/comments';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchCommentsByArticleId } from '../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
+import { AddNewComment } from 'features/addNewComment';
+import { addCommentForArticle } from '../model/services/addCommentForArticle/addCommentForArticle';
 
 interface ArticleDetailsPageProps {
 	className?: string;
@@ -34,6 +36,13 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
 	const dispatch = useAppDispatch();
 	const comments = useSelector(getArticleComments.selectAll);
 	const commentsIsLoading = useSelector(getArticleCommentsIsLoading);
+
+	const onSendComment = useCallback(
+		(text: string) => {
+			dispatch(addCommentForArticle(text));
+		},
+		[dispatch],
+	);
 
 	useInitialEffect(() => {
 		dispatch(fetchCommentsByArticleId(id));
@@ -52,6 +61,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
 			<div className={classNames(cls.ArticleDetailsPage, {}, [className])}>
 				<ArticleDetails id={id} />
 				<Text className={cls.commentTitle} title={t('Комментарии')} />
+				<AddNewComment onSendComment={onSendComment} />
 				<CommentList isLoading={commentsIsLoading} comments={comments} />
 			</div>
 		</DynamicModuleLoader>
