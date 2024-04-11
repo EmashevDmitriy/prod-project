@@ -53,7 +53,7 @@ const AddNewComment = memo(
 					<Input
 						className={cls.input}
 						placeholder={t('Введите текст комментария')}
-						value={text}
+						value={text || ''}
 						onChange={onCommentTextChange}
 					/>
 					<Button onClick={onSendHandler} theme={ButtonTheme.OUTLINE}>
