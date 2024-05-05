@@ -1,4 +1,8 @@
 .PLATE {
+	.views {
+		margin-left: auto;
+	}
+
 	.header {
 		display: flex;
 		align-items: center;
@@ -27,10 +31,6 @@
 		display: flex;
 		align-items: center;
 		margin-top: 16px;
-	}
-
-	.views {
-		margin-left: auto;
 	}
 
 	.textBlock {
@@ -79,7 +79,7 @@
 	}
 
 	.types p {
-		width: 130px;
+		width: 115px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -90,8 +90,11 @@
 		margin-right: 8px;
 	}
 
-	.title p {
+	.title {
 		margin-top: 8px;
+	}
+
+	.title p {
 		width: 200px;
 		white-space: nowrap;
 		overflow: hidden;

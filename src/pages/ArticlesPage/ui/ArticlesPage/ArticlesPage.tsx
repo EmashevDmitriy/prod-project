@@ -7,7 +7,6 @@ import {
 	ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
-	articlesPageActions,
 	articlesPageReducer,
 	getArticles,
 } from '../../model/slices/articlesPageSlice';
@@ -18,11 +17,12 @@ import {
 	getArticlesPageIsLoading,
 	getArticlesPageView,
 } from '../../model/selectors/articlesPageSelectors';
-import { ArticleViewSelector } from 'features/viewSelector';
-import { ArticleView } from 'entities/Article';
+
 import { Page } from 'widgets/Page/Page';
 import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
 import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
+import { ArticlesPageFilters } from '../ArticlesPageFilters/ArticlesPageFilters';
+import { useSearchParams } from 'react-router-dom';
 
 interface ArticlesPageProps {
 	className?: string;
@@ -37,21 +37,15 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
 	const articles = useSelector(getArticles.selectAll);
 	const view = useSelector(getArticlesPageView);
 	const isLoading = useSelector(getArticlesPageIsLoading);
+	const [searchParams] = useSearchParams();
 
 	const onLoadNextPart = useCallback(() => {
 		dispatch(fetchNextArticlesPage());
 	}, [dispatch]);
 
 	useInitialEffect(() => {
-		dispatch(initArticlesPage());
+		dispatch(initArticlesPage(searchParams));
 	});
-
-	const onChangeView = useCallback(
-		(view: ArticleView) => {
-			dispatch(articlesPageActions.setView(view));
-		},
-		[dispatch],
-	);
 
 	return (
 		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={false}>
@@ -59,8 +53,13 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
 				onScrollEnd={onLoadNextPart}
 				className={classNames(cls.ArticlesPage, {}, [className])}
 			>
-				<ArticleViewSelector view={view} onViewClick={onChangeView} />
-				<ArticleList isLoading={isLoading} view={view} articles={articles} />
+				<ArticlesPageFilters />
+				<ArticleList
+					isLoading={isLoading}
+					view={view}
+					articles={articles}
+					className={cls.list}
+				/>
 			</Page>
 		</DynamicModuleLoader>
 	);

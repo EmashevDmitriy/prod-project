@@ -3,6 +3,12 @@ import { initArticlesPage } from './initArticlesPage';
 
 describe('initArticlesPage', () => {
 	test('init articles before inited', async () => {
+		const searchParams = new URLSearchParams({
+			order: '',
+			sort: '',
+			search: '',
+		});
+
 		const thunk = new TestAsyncThunk(initArticlesPage, {
 			articlesPage: {
 				page: 2,
@@ -14,11 +20,17 @@ describe('initArticlesPage', () => {
 				_inited: false,
 			},
 		});
-		await thunk.callThunk();
+		await thunk.callThunk(searchParams);
 		expect(thunk.dispatch).toHaveBeenCalledTimes(4);
 	});
 
 	test('init articles after inited', async () => {
+		const searchParams = new URLSearchParams({
+			order: '',
+			sort: '',
+			search: '',
+		});
+
 		const thunk = new TestAsyncThunk(initArticlesPage, {
 			articlesPage: {
 				page: 2,
@@ -30,7 +42,7 @@ describe('initArticlesPage', () => {
 				_inited: true,
 			},
 		});
-		await thunk.callThunk();
+		await thunk.callThunk(searchParams);
 		expect(thunk.dispatch).toHaveBeenCalledTimes(2);
 	});
 });
