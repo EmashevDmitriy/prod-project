@@ -4,7 +4,7 @@ import { articleDetailsReducer } from 'entities/Article/model/slice/articleDetai
 import { profileReducer } from 'entities/Profile';
 import { loginReducer } from 'features/AuthByUsername/model/slice/loginSlice';
 import { addNewCommentReducer } from 'features/addNewComment/model/slices/addNewCommentSlice';
-import { articleDetailsCommentsReducer } from 'pages/ArticleDetailsPage/model/slices/articleDetailsCommentSlice';
+import { articleDetailsPageReducer } from 'pages/ArticleDetailsPage/model/slices';
 import { articlesPageReducer } from 'pages/ArticlesPage/model/slices/articlesPageSlice';
 import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { DeepPartial } from 'ts-essentials';
@@ -14,7 +14,7 @@ const defaultAsyncReducers: ReducersList = {
 	profile: profileReducer,
 	articleDetails: articleDetailsReducer,
 	addNewComment: addNewCommentReducer,
-	articleDetailsComments: articleDetailsCommentsReducer,
+	articleDetailsPage: articleDetailsPageReducer,
 	articlesPage: articlesPageReducer,
 };
 

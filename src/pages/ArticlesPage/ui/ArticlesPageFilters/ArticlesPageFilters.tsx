@@ -75,9 +75,9 @@ export const ArticlesPageFilters = memo(
 			(search: string) => {
 				dispatch(articlesPageActions.setSearch(search));
 				dispatch(articlesPageActions.setPage(1));
-				debouncedFetchData();
+				fetchData();
 			},
-			[dispatch, debouncedFetchData],
+			[dispatch, fetchData],
 		);
 
 		const onChangeType = useCallback(
