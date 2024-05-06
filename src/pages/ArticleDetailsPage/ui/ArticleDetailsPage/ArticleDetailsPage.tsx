@@ -2,7 +2,7 @@ import cls from './ArticleDetailsPage.module.scss';
 import { memo, useCallback } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ArticleDetails } from 'entities/Article';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Text, TextSize } from 'shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 import { CommentList } from 'entities/Comment';
@@ -10,22 +10,21 @@ import {
 	DynamicModuleLoader,
 	ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { getArticleComments } from '../model/slices/articleDetailsCommentSlice';
-import { getArticleRecommendations } from '../model/slices/articleDetailsRecommendationsSlice';
+import { getArticleComments } from '../../model/slices/articleDetailsCommentSlice';
+import { getArticleRecommendations } from '../../model/slices/articleDetailsRecommendationsSlice';
 import { useSelector } from 'react-redux';
-import { getArticleCommentsIsLoading } from '../model/selectors/comments';
+import { getArticleCommentsIsLoading } from '../../model/selectors/comments';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchCommentsByArticleId } from '../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
+import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import { AddNewComment } from 'features/addNewComment';
-import { addCommentForArticle } from '../model/services/addCommentForArticle/addCommentForArticle';
-import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { RouterPath } from 'shared/config/configRouter/routeConfig';
+import { addCommentForArticle } from '../../model/services/addCommentForArticle/addCommentForArticle';
 import { Page } from 'widgets/Page/Page';
-import { getArticleRecommendationsIsLoading } from '../model/selectors/recommendations';
+import { getArticleRecommendationsIsLoading } from '../../model/selectors/recommendations';
 import { ArticleList } from 'entities/Article/ui/ArticleList/ArticleList';
-import { fetchArticleRecommendations } from '../model/services/fetchArticleRecommendations/fetchArticleRecommendations';
-import { articleDetailsPageReducer } from '../model/slices';
+import { fetchArticleRecommendations } from '../../model/services/fetchArticleRecommendations/fetchArticleRecommendations';
+import { articleDetailsPageReducer } from '../../model/slices';
+import { ArticleDetailsPageHeader } from '../ArticleDetailsPageHeader/ArticleDetailsPageHeader';
 
 interface ArticleDetailsPageProps {
 	className?: string;
@@ -45,11 +44,6 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
 	const recommendationIsLoading = useSelector(
 		getArticleRecommendationsIsLoading,
 	);
-	const navigate = useNavigate();
-
-	const onBackToList = useCallback(() => {
-		navigate(RouterPath.articles);
-	}, [navigate]);
 
 	const onSendComment = useCallback(
 		(text: string) => {
@@ -74,9 +68,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
 	return (
 		<DynamicModuleLoader reducers={initialReducer} removeAfterUnmount={true}>
 			<Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
-				<Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
-					{t('Назад к списку')}
-				</Button>
+				<ArticleDetailsPageHeader />
 				<ArticleDetails id={id} />
 				<Text
 					size={TextSize.L}
