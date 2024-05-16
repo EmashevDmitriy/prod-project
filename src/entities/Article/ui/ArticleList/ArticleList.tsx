@@ -6,6 +6,8 @@ import { ArticleListItem } from '../ArticleListItem/ArticleListItem';
 import { ArticleListItemSkeleton } from '../ArticleListItem/ArticleListItemSkeleton';
 import { Text, TextSize } from 'shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
+import { Virtuoso, VirtuosoGrid } from 'react-virtuoso';
+import { ArticlesPageFilters } from 'pages/ArticlesPage/ui/ArticlesPageFilters/ArticlesPageFilters';
 
 interface ArticleListProps {
 	className?: string;
@@ -13,12 +15,15 @@ interface ArticleListProps {
 	isLoading?: boolean;
 	view?: ArticleView;
 	target?: HTMLAttributeAnchorTarget;
+	onLoadNextPart?: () => void;
 }
+
+const Header = () => <ArticlesPageFilters />;
 
 const getSkeletons = (view: ArticleView) =>
 	new Array(view === ArticleView.LIST ? 9 : 3)
 		.fill(0)
-		.map((item, index) => (
+		.map((_, index) => (
 			<ArticleListItemSkeleton className={cls.card} key={index} view={view} />
 		));
 
@@ -29,8 +34,10 @@ export const ArticleList = memo(
 		view = ArticleView.LIST,
 		isLoading,
 		target,
+		onLoadNextPart,
 	}: ArticleListProps) => {
 		const { t } = useTranslation();
+
 		const renderArticle = (article: Article) => (
 			<ArticleListItem
 				article={article}
@@ -41,6 +48,13 @@ export const ArticleList = memo(
 			/>
 		);
 
+		const Footer = memo(() => {
+			if (isLoading) {
+				return <div className={cls.articlesList}>{getSkeletons(view)}</div>;
+			}
+			return <div className={cls.footer}></div>;
+		});
+
 		if (!isLoading && !articles.length) {
 			return (
 				<div className={classNames('', {}, [className, cls[view]])}>
@@ -50,10 +64,30 @@ export const ArticleList = memo(
 		}
 
 		return (
-			<div className={classNames('', {}, [className, cls[view]])}>
-				{articles.length > 0 ? articles.map(renderArticle) : null}
-				{isLoading && getSkeletons(view)}
+			<div className={classNames(cls.ArticleList, {}, [className, cls[view]])}>
+				{view === ArticleView.PLATE ? (
+					<Virtuoso
+						style={{ height: '100%' }}
+						data={articles}
+						itemContent={(_, article) => renderArticle(article)}
+						endReached={onLoadNextPart}
+						components={{ Header, Footer }}
+					/>
+				) : (
+					<VirtuosoGrid
+						listClassName={cls.itemsWrapper}
+						style={{ height: '100%' }}
+						data={articles}
+						itemContent={(_, article) => renderArticle(article)}
+						endReached={onLoadNextPart}
+						components={{ Header, Footer }}
+					/>
+				)}
 			</div>
+			// <div className={classNames('', {}, [className, cls[view]])}>
+			// 	{articles.length > 0 ? articles.map(renderArticle) : null}
+			// 	{isLoading && getSkeletons(view)}
+			// </div>
 		);
 	},
 );

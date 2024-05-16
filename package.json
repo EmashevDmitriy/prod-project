@@ -99,7 +99,8 @@
 		"react-dom": "^18.2.0",
 		"react-i18next": "^14.0.5",
 		"react-redux": "^9.1.0",
-		"react-router-dom": "^6.22.0"
+		"react-router-dom": "^6.22.0",
+		"react-virtuoso": "^4.7.10"
 	},
 	"loki": {
 		"configurations": {
