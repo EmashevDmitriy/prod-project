@@ -27,6 +27,18 @@
 		gap: 25px;
 		margin: 20px 20px 0 45px;
 	}
+
+	.ItemContainer {
+		width: 230px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	/* stylelint-disable-next-line media-feature-range-notation */
+	@media (max-width: 1024px) {
+		width: 50%;
+	}
 }
 
 .skeleton {

@@ -17,16 +17,18 @@ import { useTranslation } from 'react-i18next';
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
 import { AppLink } from 'shared/ui/AppLink/AppLink';
 import { RouterPath } from 'shared/config/configRouter/routeConfig';
+import { ARTICLE_LIST_SESSION_ITEM_ID } from 'shared/const/localstorage';
 
 interface ArticleListItemProps {
 	className?: string;
 	article: Article;
 	view: ArticleView;
 	target?: HTMLAttributeAnchorTarget;
+	index?: number;
 }
 
 export const ArticleListItem = memo(
-	({ className, article, view, target }: ArticleListItemProps) => {
+	({ className, article, view, target, index }: ArticleListItemProps) => {
 		const { t } = useTranslation();
 
 		const types = (
@@ -39,6 +41,13 @@ export const ArticleListItem = memo(
 				<Icon Svg={EyeIcon} />
 			</>
 		);
+
+		const handleButtonCLick = () => {
+			sessionStorage.setItem(
+				ARTICLE_LIST_SESSION_ITEM_ID,
+				JSON.stringify(index),
+			);
+		};
 
 		if (view === ArticleView.PLATE) {
 			const textBlock = article.blocks.find(
@@ -75,7 +84,7 @@ export const ArticleListItem = memo(
 								target={target}
 								to={RouterPath.article_details + article.id}
 							>
-								<Button theme={ButtonTheme.OUTLINE}>
+								<Button onClick={handleButtonCLick} theme={ButtonTheme.OUTLINE}>
 									{t('Читать далее...')}
 								</Button>
 							</AppLink>
@@ -88,6 +97,7 @@ export const ArticleListItem = memo(
 
 		return (
 			<AppLink
+				onClick={handleButtonCLick}
 				target={target}
 				to={RouterPath.article_details + article.id}
 				className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}
