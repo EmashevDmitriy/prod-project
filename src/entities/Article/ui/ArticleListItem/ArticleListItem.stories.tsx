@@ -4,7 +4,7 @@ import {
 	ArticleBlockType,
 	ArticleType,
 	ArticleView,
-} from 'entities/Article/model/types/article';
+} from '../../model/types/article';
 
 const meta: Meta<typeof ArticleListItem> = {
 	title: 'entities/ArticleListItem',
