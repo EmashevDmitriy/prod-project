@@ -18,6 +18,7 @@ import {
 	DynamicModuleLoader,
 	ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { HStack } from 'shared/ui/Stack';
 
 export interface AddNewCommentProps {
 	className?: string;
@@ -49,7 +50,11 @@ const AddNewComment = memo(
 
 		return (
 			<DynamicModuleLoader reducers={initialReducers}>
-				<div className={classNames(cls.AddNewComment, {}, [className])}>
+				<HStack
+					justify="between"
+					max
+					className={classNames(cls.AddNewComment, {}, [className])}
+				>
 					<Input
 						className={cls.input}
 						placeholder={t('Введите текст комментария')}
@@ -59,7 +64,7 @@ const AddNewComment = memo(
 					<Button onClick={onSendHandler} theme={ButtonTheme.OUTLINE}>
 						{t('Отправить')}
 					</Button>
-				</div>
+				</HStack>
 			</DynamicModuleLoader>
 		);
 	},
